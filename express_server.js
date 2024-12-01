@@ -4,11 +4,11 @@ const PORT = 8080;
 
 app.set("view engine", "ejs");
 
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
-function generateRandomString() { 
-  return Math.random().toString(36).substring(2, 8); 
-};
+function generateRandomString() {
+  return Math.random().toString(36).slice(2, 8);
+}
 
 const urlDatabase = {
   b2xVn2: "http://www.lighthouse.labs.ca",
@@ -45,14 +45,14 @@ app.get("/urls.json", (req, res) => {
 });
 
 app.get("/u/:id", (req, res) => {
-   const shortURL = req.params.id;
-   const longURL = urlDatabase[shortURL];
-   if (longURL) {
-     res.redirect(longURL);
-   } else {
-     res.send('Short URL not found');
-   }
-  });
+  const shortURL = req.params.id;
+  const longURL = urlDatabase[shortURL];
+  if (longURL) {
+    res.redirect(longURL);
+  } else {
+    res.send('Short URL not found');
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
