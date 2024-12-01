@@ -6,6 +6,10 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({ extended: true}));
 
+function generateRandomString() { 
+  return Math.random().toString(36).substring(2, 8); 
+};
+
 const urlDatabase = {
   b2xVn2: "http://www.lighthouse.labs.ca",
   "9sm5xK": "http://www.google.com"
@@ -21,8 +25,10 @@ app.get("/urls", (req, res) => {
 });
 
 app.post("/urls", (req, res) => {
-  console.log(req.body); // Log the POST request body to the console
-  res.send("Ok"); // Respond with 'Ok' (we will replace this)
+  const longURL = req.body.longURL;
+  const shortURL = generateRandomString();
+  urlDatabase[shortURL] = longURL;
+  res.redirect(`/urls/${shortURL}`);
 });
 
 app.get("/urls/new", (req, res) => {
@@ -38,14 +44,15 @@ app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
 
-app.get("/set", (req, res) => {
-  const a = 1;
-  res.send(`a = ${a}`);
-});
-
-app.get("/fetch", (req, res) => {
-  res.send(`a = ${a}`);
-});
+app.get("/u/:id", (req, res) => {
+   const shortURL = req.params.id;
+   const longURL = urlDatabase[shortURL];
+   if (longURL) {
+     res.redirect(longURL);
+   } else {
+     res.send('Short URL not found');
+   }
+  });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
