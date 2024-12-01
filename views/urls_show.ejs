@@ -2,25 +2,51 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-      integrity="sha384-GJzQFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
-    <title>TinyApp</title>
+
+    <title>New URL - TinyApp Example</title>
   </head>
+
   <body>
     <%- include('partials/_header') %>
 
     <main style="margin: 1em;">
       <h3>Shortened URL</h3>
-      <p>Short URL: <a href="/u/<%= id %>"><%= id %></a></p>
-      <p>Long URL: <%= longURL %></p>
-      <a href="/urls" class="btn btn-primary">Back to URLs</a>
+      <form method="POST" action="/urls/<%= id %>/update">
+        <div class="form-group">
+          <label for="shortURL">Short URL:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="shortURL"
+            value="/u/<%= id %>"
+            readonly
+          />
+        </div>
+        <div class="form-group">
+          <label for="longURL">Long URL:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="longURL"
+            name="longURL"
+            value="<%= longURL %>"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+      <a href="/urls" class="btn btn-secondary">Back to URLs</a>
     </main>
     <!-- Bootstrap JS -->
     <script
