@@ -17,7 +17,10 @@
         <a class="nav-item nav-link" href="/urls">My URLs</a>
         <a class="nav-item nav-link" href="/urls/new">Create New URL</a>
       </div>
-      <form class="form-inline ml-auto" method="POST" action="/login"> 
+      <form class="form-inline ml-auto" method="POST" action="/login">
+        <% if (username) { %>
+          <span class="navbar-text mr-2">Logged in as <%= username %></span>
+        <% } %> 
         <input 
         class="form-control mr-sm-2" 
         type="text" 
