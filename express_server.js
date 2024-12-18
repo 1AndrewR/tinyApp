@@ -1,7 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser")
 const app = express();
-const PORT = 8080;
+const PORT = 8081;
 
 app.set("view engine", "ejs");
 
@@ -79,6 +79,10 @@ app.get("/u/:id", (req, res) => {
   } else {
     res.send('Short URL not found');
   }
+});
+
+app.get("/register", (req, res) => {
+  res.render('register');
 });
 
 app.listen(PORT, () => {
